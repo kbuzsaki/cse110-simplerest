@@ -72,7 +72,7 @@ def get_poll(poll_id):
             "creator": 2,
             "created": datetime.now().isoformat(),
             "name": "Some Poll",
-            "questions": [1, 2]
+            "questions": [1, 2, 3, 4]
         }
     elif poll_id == 2:
         response = {
@@ -81,7 +81,7 @@ def get_poll(poll_id):
             "creator": 2,
             "created": datetime.now().isoformat(),
             "name": "Some Other Poll",
-            "questions": []
+            "questions": [5]
         }
 
     return json.dumps(response)
@@ -122,7 +122,7 @@ def get_question(question_id):
             "type": "choice",
             "title": "What pizza toppings?",
             "content": {
-                "allow_multiple": False,
+                "allow_multiple": True,
                 "allow_custom": False,
                 "options": [
                     "pepperoni",
@@ -145,6 +145,54 @@ def get_question(question_id):
                     "Mark",
                     "Sean",
                     "James"
+                ]
+            }
+        }
+    elif question_id == 3:
+        response = {
+            "id": 3,
+            "poll": 1,
+            "type": "choice",
+            "title": "Cutest pet??",
+            "content": {
+                "allow_multiple": False,
+                "allow_custom": False,
+                "options": [
+                    "Dog",
+                    "Cat",
+                    "Duck"
+                ]
+            }
+        }
+    elif question_id == 4:
+        response = {
+            "id": 4,
+            "poll": 1,
+            "type": "choice",
+            "title": "Silliest pet??",
+            "content": {
+                "allow_multiple": True,
+                "allow_custom": False,
+                "options": [
+                    "Pig",
+                    "Bat",
+                    "Bear"
+                ]
+            }
+        }
+    elif question_id == 5:
+        response = {
+            "id": 5,
+            "poll": 2,
+            "type": "choice",
+            "title": "Cutest pet??",
+            "content": {
+                "allow_multiple": False,
+                "allow_custom": False,
+                "options": [
+                    "Dog",
+                    "Cat",
+                    "Duck"
                 ]
             }
         }
