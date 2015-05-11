@@ -227,9 +227,16 @@ def get_response(response_id):
 
     return json.dumps(response)
 
-@app.route('/api/response/create')
+@app.route('/api/response/create', methods=["GET", "PUT"])
 def put_response():
-    return ""
+    question_response = request.json["response"]
+    response = {
+        "id": 1,
+        "responder": int(question_response["responder"]),
+        "question": int(question_response["question"]),
+        "choices": list(question_response["choices"])
+    }
+    return json.dumps(response)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
