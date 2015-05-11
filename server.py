@@ -197,6 +197,9 @@ def get_question(question_id):
             }
         }
 
+    choice_responses = [resp["id"] for resp in response_history if resp["question"] == response["id"]]
+    response["content"]["responses"] = choice_responses
+
     return json.dumps(response)
 
 @app.route('/api/response/<int:response_id>')
@@ -224,18 +227,28 @@ def get_response(response_id):
             "responder": 3,
             "choices": ["pepperoni"]
         }
+    else:
+        matches = [resp for resp in response_history if resp["id"] == response_id]
+        if matches:
+            response = matches[0]
 
     return json.dumps(response)
 
+LAST_RESPONSE_ID = 3
+response_history = []
+
 @app.route('/api/response/create', methods=["GET", "PUT"])
 def put_response():
+    global LAST_RESPONSE_ID
+    LAST_RESPONSE_ID += 1
     question_response = request.json["response"]
     response = {
-        "id": 1,
+        "id": LAST_RESPONSE_ID,
         "responder": int(question_response["responder"]),
         "question": int(question_response["question"]),
         "choices": list(question_response["choices"])
     }
+    response_history.append(response)
     return json.dumps(response)
 
 if __name__ == "__main__":
